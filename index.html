@@ -27,8 +27,8 @@
                 <span>земного шара</span></h1>
                 <p class="main-content__text">Оплатите взнос на телеграммы для организации Международного васюкинского турнира по шахматам</p>
                 <div class="main-content__btns">
-                  <button class="main-content__btn-1">Поддержать шахматную мысль</button>
-                  <button class="main-content__btn-2">Подробнее о турнире</button>
+                  <a href="#tournament"><button class="main-content__btn-1">Поддержать шахматную мысль</button></a>
+                  <a href="#tournament-info"><button class="main-content__btn-2">Подробнее о турнире</button></a>
                 </div>
                  </div>
             </section>
@@ -62,15 +62,13 @@
 </div>
 
 
-            <section class="tournament">
+            <section id="tournament" class="tournament">
   <div class="tournament__container container">
     
     <div class="tournament__section tournament__section--intro flex">
 
-      <div class="flex tournament__section--intro ">
-        <div>
-
-      
+      <div class="flex ">
+        <div class="flex tournament__section--intro ">
       <h2 class="tournament__title">
         Чтобы поддержать<br>
         Международный васюкинский турнир   <span class=""> посетите лекцию на тему: <br>
@@ -83,7 +81,7 @@
       
       </div>
 </div>
-    <div class=" tournament__section--simul flex">
+    <div id="tournament-info" class="tournament__section--simul flex">
       <img class="tournament__image tournament__image--secondary" src="imgs/tournament-2.png" alt="">
       
       <div class="tournament__details">
@@ -207,7 +205,7 @@
 
 
 
-           <section class=" ">
+           <section>
   <div class="participants container">
     
       <div class="participants__header flex">
@@ -220,8 +218,9 @@
         </svg>
       </button>
       <div class="participants__counter">
-        <span class="counter-start"></span>/<span class="counter-end"></span>
-      </div>
+  <span class="counter-start"></span>/<span class="counter-end"></span>
+</div>
+
       <button class="participants__btn participants__btn--next"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1.4618 1.53839L9.92334 9.99993L1.4618 18.4615" stroke="white" stroke-width="2" stroke-linecap="square"/>
       </svg>

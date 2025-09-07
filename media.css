@@ -93,10 +93,10 @@
     margin-bottom: 34px;
 }
 
-.tournament__image{
-    width: 100%;
-    margin-bottom: 24px;
-}
+    .tournament__image {
+        width: 100%;
+        margin-bottom: 31px;
+    }
 
 .tournament__details-title {
     font-size: 50px;
@@ -278,11 +278,13 @@
     font-size: 45px;
   }
 
-  .main-content button {
+  .main-content button,
+  .main-content__btns a {
     margin-bottom: unset;
     max-width: 335px;
       width: 100%;
 }
+
 
 .main-content__btns{
   display: flex;
@@ -426,7 +428,16 @@
     }
 
     .tournament__image--secondary{
-                  margin-bottom: 73px;
+                margin-bottom: 32px;
+                  width: 359px;
+    }
+
+    .tournament__section--simul {
+    padding-top: unset;
+}
+
+    .tournament__details {
+           padding: 0 20px;
     }
 
     .tournament__details-title{
@@ -446,6 +457,12 @@
     border-right: none;
 }
 
+.tournament__row:nth-child(4n) .tournament__cell:nth-child(2n){
+          padding-top: 14px;
+        padding-left: 10px;
+}
+
+
 .tournament__row{
   display: flex;
   flex-direction: column;
@@ -455,8 +472,8 @@
   padding-right: unset;
 }
 
-    .tournament__cell {
-        padding-bottom: 14px;
+  .tournament__cell {
+        padding-bottom: 13px;
     }
 
 .tournament__cell:nth-child(2n){
@@ -484,8 +501,8 @@
 }
 
 .tournament__table {
-    margin-bottom: 24px;
-}
+        margin-bottom: 29px;
+    }
 
 .tournament__contact {
     font-size: 19px;
@@ -513,7 +530,7 @@
 }
 
 .participants__nav {
-        margin-bottom: 51px;
+        margin-bottom: 58px;
     }
 
     .footer__container {

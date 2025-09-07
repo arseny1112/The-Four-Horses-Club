@@ -1,50 +1,65 @@
 document.addEventListener('DOMContentLoaded', function() {
+  
 
- const track = document.querySelector(".participants__track"); 
+  const track = document.querySelector(".participants__track"); 
   const itemsEls = document.querySelectorAll(".participants__item");
-  let itemWidth = itemsEls[0].offsetWidth;
   const itemsCount = itemsEls.length;
 
-  // Инициализация переменных
   let position = 0;
-  let step = 3;
   let currentIndex = 0;
+  let step = 3; 
+  let itemWidth = itemsEls[0].offsetWidth;
   let autoSlide;
 
-  // Функция для выбора актуальной навигации
-  function getNavElements() {
-    const nav = document.querySelector(".participants__nav--adaptive");
-    if (!nav) return {};
-    return {
-      prevBtn: nav.querySelector(".participants__btn--prev"),
-      nextBtn: nav.querySelector(".participants__btn--next"),
-      counterStart: nav.querySelector(".counter-start"),
-      counterEnd: nav.querySelector(".counter-end"),
-    };
+  // Функция для получения активной навигации в зависимости от ширины
+  function getNav() {
+    if (window.innerWidth < 592) {
+      const navAdaptive = document.querySelector(".participants__nav--adaptive");
+      return navAdaptive ? {
+        prevBtn: navAdaptive.querySelector(".participants__btn--prev"),
+        nextBtn: navAdaptive.querySelector(".participants__btn--next"),
+        counterStart: navAdaptive.querySelector(".counter-start"),
+        counterEnd: navAdaptive.querySelector(".counter-end")
+      } : {};
+    } else {
+      const nav = document.querySelector(".participants__nav");
+      return nav ? {
+        prevBtn: nav.querySelector(".participants__btn--prev"),
+        nextBtn: nav.querySelector(".participants__btn--next"),
+        counterStart: nav.querySelector(".counter-start"),
+        counterEnd: nav.querySelector(".counter-end")
+      } : {};
+    }
   }
 
   // Обновление счётчика
-  function updateCounter(counterStart, counterEnd) {
-    if (counterStart) counterStart.textContent = Math.min(currentIndex + step, itemsCount);
-    if (counterEnd) counterEnd.textContent = itemsCount;
+  function updateCounter() {
+    const { counterStart, counterEnd } = getNav();
+    if (counterStart && counterEnd) {
+      counterStart.textContent = Math.min(currentIndex + step, itemsCount);
+      counterEnd.textContent = itemsCount;
+    }
   }
 
   // Обновление размеров и шага
   function updateSizes() {
-    itemWidth = itemsEls[0].offsetWidth;
-    if (window.innerWidth < 870) step = 1;
-    else if (window.innerWidth < 1345) step = 2;
-    else step = 3;
+  itemWidth = itemsEls[0].offsetWidth;
 
-    const { counterStart, counterEnd } = getNavElements();
-    updateCounter(counterStart, counterEnd);
+  if (window.innerWidth < 870) {
+    step = 1; // меньше 870px — по 1 карточке
+  } else if (window.innerWidth < 1345) {
+    step = 2; // от 870 до 1345px — по 2 карточки
+  } else {
+    step = 3; // больше 1345px — по 3 карточки
   }
 
-  // Сдвиг слайдов
+  updateCounter();
+}
+
+
   function moveSlide() {
     track.style.transform = `translateX(${-position}px)`;
-    const { counterStart, counterEnd } = getNavElements();
-    updateCounter(counterStart, counterEnd);
+    updateCounter();
   }
 
   function nextSlide() {
@@ -63,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Автослайд
   function startAutoSlide() {
     clearInterval(autoSlide);
     autoSlide = setInterval(() => {
@@ -73,12 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
         position = 0;
         moveSlide();
       }
-    }, 44444000);
+    }, 5000);
   }
 
   // Привязка событий к кнопкам
   function attachNavEvents() {
-    const { prevBtn, nextBtn } = getNavElements();
+    const { prevBtn, nextBtn } = getNav();
     if (prevBtn) prevBtn.onclick = () => { clearInterval(autoSlide); prevSlide(); startAutoSlide(); };
     if (nextBtn) nextBtn.onclick = () => { clearInterval(autoSlide); nextSlide(); startAutoSlide(); };
   }
@@ -88,18 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
   attachNavEvents();
   startAutoSlide();
 
-  // Пересборка при ресайзе
   window.addEventListener('resize', () => {
-    const oldStep = step;
     updateSizes();
-    attachNavEvents(); // пересобираем кнопки, если поменялась навигация
-    if (oldStep !== step) {
-      currentIndex = 0;
-      position = 0;
-      moveSlide();
-      startAutoSlide();
-    }
+    currentIndex = 0;
+    position = 0;
+    moveSlide();
+    attachNavEvents();
   });
+
 
 
 const stagesItems = Array.from(document.querySelectorAll('.stages__item'));
